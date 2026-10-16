@@ -15,3 +15,7 @@ Run typechecking regularly, single test files regularly, and the full test suite
 Once done, call the Skill tool with "code-review" to review the work.
 
 Commit your work to the current branch.
+
+## Vault
+
+If the repo has `docs/agents/vault.md` and the work is merged to `main` in this session, call the Skill tool with "vault-sync" after the merge.
