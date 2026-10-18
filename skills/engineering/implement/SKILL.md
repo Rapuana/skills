@@ -16,6 +16,8 @@ Once done, call the Skill tool with "code-review" to review the work.
 
 Commit your work to the current branch.
 
+If the repo's rules have you open a pull request, the work is done when its CI run is green: read the result, and fix and push until it passes.
+
 ## Vault
 
 If the repo has `docs/agents/vault.md` and the work is merged to `main` in this session, call the Skill tool with "vault-sync" after the merge.
