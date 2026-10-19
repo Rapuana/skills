@@ -23,11 +23,13 @@ You invoke this by typing `/implement-spec`, and the agent won't reach for it on
 
 ## The integration branch
 
-Everything lands on one branch. Each implementer:
+Everything lands on one branch. The orchestrator cuts each implementer's worktree from the integration branch tip itself, because a harness's own worktree option can cut from the default branch instead. Each implementer:
 
 1. confirms its worktree is based on the integration branch before it starts,
 2. builds its ticket with [tdd](https://aihero.dev/skills-tdd), red-green one slice at a time,
 3. merges the integration branch tip into its own branch before reporting done, so landing it is a fast-forward.
+
+The orchestrator then merges each finished branch itself and runs the repo's checks. A merger subagent only steps in when a merge conflicts, so a clean merge costs a few commands, not a whole subagent's context.
 
 The tracker decides whether a pull request exists at all. If your tracker closes work through PRs, or you ask for one, the skill opens a draft PR after the first merge and marks it ready at the end. Otherwise the run stops on the integration branch with every ticket resolved the way your tracker closes work, which works fully offline against a local markdown tracker.
 
@@ -49,7 +51,7 @@ Both happen when `code-review` runs anywhere other than the one point the skill 
 
 **Does it drive tdd like implement does?**
 
-It does now, though it didn't at first. Users running the in-progress version noticed that "the implementer subagents don't inherit the /tdd directive", so red-green stopped as soon as they scaled up from one ticket to a whole spec. Each implementer now builds its ticket with `tdd`. There is still no step where you agree seams interactively, as there is in an `implement` session, so name the seams in the spec or the tickets if you want them pinned.
+It does now, though it didn't at first. Users running the in-progress version noticed that "the implementer subagents don't inherit the /tdd directive", so red-green stopped as soon as they scaled up from one ticket to a whole spec. Each implementer now builds its ticket with `tdd`. There is still no step where you agree seams interactively, as there is in an `implement` session, so name the seams in the spec or the tickets if you want them pinned. `tdd` treats seams named in the ticket as already confirmed, so implementers build at them without stopping to ask.
 
 **Two implementers running in parallel collided on the same file, or picked different names for the same thing.**
 
