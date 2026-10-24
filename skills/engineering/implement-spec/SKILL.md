@@ -22,7 +22,7 @@ Communication to and from subagents should be sparse. Communicate primarily thro
 
 2. (optional) Use an **exploration subagent** to conduct any exploration required by the tickets - relevant codebase files or external documentation. Ensure the exploration subagent can save files - it should save its markdown notes in a directory outside the repo, accessible by all future subagents. This lets **implementer subagents** focus on implementation rather than exploration.
 
-3. Create the integration branch. If the issue tracker closes work through PRs, or the user asks for one, open a draft PR after the first merge in step 5 (a branch with no commits ahead of main can't open one), marked as closing the spec and tickets.
+3. Create the integration branch. If the issue tracker closes work through PRs, or the user asks for one, open a draft PR after the first merge in step 5 (a branch with no commits ahead of main can't open one), marked as closing the spec and tickets. Keep the machine awake until step 9 (the harness's keep-awake tool, or `caffeinate -i` in the background): background implementers die mid-task when it sleeps.
 
 4. Use **implementer subagents** to implement each ticket, each in its own worktree on its own branch. Cut each worktree yourself from the integration branch tip (`git worktree add -b <ticket-branch> <path> <integration-branch>`) and hand the implementer its path: a harness's own worktree option may cut from the default branch instead. Each implementer subagent:
    - confirms its worktree is based on the integration branch before starting, and resets onto it if not;
