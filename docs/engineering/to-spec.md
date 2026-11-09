@@ -69,6 +69,7 @@ A tracker issue may not return a very large spec in full, and there is no local 
 - It uses your project's nouns, not generic product-management boilerplate.
 - You remember making every decision in it. It invented nothing to fill a section.
 - The out-of-scope section lists real things. The things you refused are usually the most useful lines on the page.
+- No decision contradicts the out-of-scope section. A decision that reuses an existing component says what that component shows the user, so a quiet change to wording or behaviour can't hide behind its name.
 
 ## Where it fits
 
