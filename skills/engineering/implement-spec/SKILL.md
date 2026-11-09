@@ -25,15 +25,16 @@ Communication to and from subagents should be sparse. Communicate primarily thro
 3. Create the integration branch. If the issue tracker closes work through PRs, or the user asks for one, open a draft PR after the first merge in step 5 (a branch with no commits ahead of main can't open one), marked as closing the spec and tickets. Keep the machine awake until step 9 (the harness's keep-awake tool, or `caffeinate -i` in the background): background implementers die mid-task when it sleeps.
 
 4. Use **implementer subagents** to implement each ticket, each in its own worktree on its own branch. Cut each worktree yourself from the integration branch tip (`git worktree add -b <ticket-branch> <path> <integration-branch>`) and hand the implementer its path: a harness's own worktree option may cut from the default branch instead. Each implementer subagent:
+   - enters its worktree first with the harness's worktree tool where it has one (Claude Code's `EnterWorktree`), so the shell and the harness's edit guards treat that path as home;
    - confirms its worktree is based on the integration branch before starting, and resets onto it if not;
-   - calls the Skill tool with `tdd` to build the ticket;
+   - calls the Skill tool with `tdd` to build the ticket, verifying through tests: the repo's visual or manual checks run once, in step 7;
    - merges the integration branch tip into its own branch before reporting done
 
-5. Once an **implementer subagent** completes, merge its branch into the integration branch yourself: `git merge --no-ff`, then the repo's test and lint commands, then push if the integration branch is on a remote. Hand the merge to a **merger subagent** only when it conflicts, so a clean merge costs a few commands rather than a subagent's context.
+5. Once an **implementer subagent** completes, merge its branch into the integration branch yourself: `git merge --no-ff`, then merge the default branch's tip too, so work landing there meets the spec's while the conflicts are small. Then run the repo's test and lint commands, and push if the integration branch is on a remote. Hand a merge to a **merger subagent** only when it conflicts, so a clean merge costs a few commands rather than a subagent's context.
 
 6. If this changes the **frontier** of available tickets, kick off more **implementer subagents** to work on the new tickets. This allows for maximum concurrency.
 
-7. Once all tickets are complete, call the Skill tool with `code-review` on the integration branch. Fix all issues raised by the code review in a single **implementer subagent**.
+7. Once all tickets are complete, call the Skill tool with `code-review` on the integration branch. Fix all issues raised by the code review in a single **implementer subagent**, which then runs the repo's visual or manual checks once over everything the tickets touched.
 
 8. If a draft PR exists, mark it ready for review. Otherwise, resolve each ticket the way the issue tracker closes work, and report the integration branch.
 
