@@ -28,6 +28,7 @@ Communication to and from subagents should be sparse. Communicate primarily thro
    - enters its worktree first with the harness's worktree tool where it has one (Claude Code's `EnterWorktree`), so the shell and the harness's edit guards treat that path as home;
    - confirms its worktree is based on the integration branch before starting, and resets onto it if not;
    - calls the Skill tool with `tdd` to build the ticket, verifying through tests: the repo's visual or manual checks run once, in step 7;
+   - extends the spec's schema migration when the integration branch already carries one that isn't on the default branch, rather than adding another, so the spec lands as one migration with one head (then re-runs the repo's migration check);
    - writes its **evidence** (the tests it added, the output line of any check it ran) into its commit message, since the reviewers in step 7 read commits, not its report;
    - merges the integration branch tip into its own branch before reporting done
 
