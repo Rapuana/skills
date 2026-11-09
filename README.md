@@ -12,6 +12,28 @@
 
 [![skills.sh](https://skills.sh/b/mattpocock/skills)](https://skills.sh/mattpocock/skills)
 
+## Updating this fork's skills locally
+
+This fork installs into Claude Code as `rapuana-skills@rapuana`, from a local marketplace that points at this checkout. Installing copies the skills into `~/.claude/plugins/cache/rapuana/rapuana-skills/<version>/`, so new commits here do nothing until you refresh that copy. Claude Code only refreshes it when the `version` in `.claude-plugin/plugin.json` changes, which is why `claude plugin update` does nothing while the version stays the same.
+
+To pick up the latest skills, reinstall, then restart Claude Code:
+
+```bash
+claude plugin marketplace update rapuana
+claude plugin uninstall rapuana-skills@rapuana
+claude plugin install rapuana-skills@rapuana
+```
+
+The install copies the working tree as it is, uncommitted edits included, so commit or stash anything half done first.
+
+To check whether the installed copy is behind:
+
+```bash
+diff -rq ~/.claude/plugins/cache/rapuana/rapuana-skills/*/skills skills
+```
+
+If you edit skills often, run `scripts/link-skills.sh` instead. It symlinks each skill into `~/.claude/skills`, so edits take effect as soon as you save. Uninstall the plugin first, or every skill loads twice.
+
 My agent skills that I use every day to do real engineering - not vibe coding.
 
 Developing real applications is hard. Approaches like GSD, BMAD, and Spec-Kit try to help by owning the process. But while doing so, they take away your control and make bugs in the process hard to resolve.
