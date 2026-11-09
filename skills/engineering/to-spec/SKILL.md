@@ -16,7 +16,9 @@ The issue tracker and triage label vocabulary should have been provided to you. 
 
 Check with the user that these seams match their expectations.
 
-3. Write the spec using the template below, then publish it to the project issue tracker. Apply the `ready-for-agent` triage label - no need for additional triage.
+3. Write the spec using the template below, check it, then publish it to the project issue tracker. Apply the `ready-for-agent` triage label - no need for additional triage.
+
+   Before publishing, check every Out of Scope line against the Implementation Decisions. Where a decision reuses an existing component, state what that component shows the user, and confirm no decision changes something Out of Scope rules out. The check is done when each Out of Scope line has survived every decision, or the clash has been resolved in one of them.
 
 <spec-template>
 
