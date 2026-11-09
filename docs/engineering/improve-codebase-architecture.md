@@ -97,6 +97,7 @@ The skill does not ship a good answer. People often ask for a `TYPESCRIPT.md` wi
 
 - The candidates name your domain's concepts, not invented class names: "the Order intake module," not "the FooBarHandler."
 - The candidates are in files you edited recently, not in parts of the repo nobody touches.
+- Each card names files and symbols (with a search for a repeated shape), never line numbers, so it still points at the right code weeks later.
 - No code changed during the run. The only new file is the HTML report in your temp directory.
 - It stops after the report and asks which candidate you want. It does not continue on its own.
 - Each card explains the payoff as locality or leverage, and says which tests get simpler, not just "this is cleaner."

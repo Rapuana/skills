@@ -28,11 +28,12 @@ Everything lands on one branch. The orchestrator cuts each implementer's worktre
 1. enters its worktree with the harness's worktree tool, where there is one (`EnterWorktree` in Claude Code). A subagent otherwise inherits the orchestrator's working directory, and a harness that guards edits to other worktrees blocks every edit it makes,
 2. confirms its worktree is based on the integration branch before it starts,
 3. builds its ticket with [tdd](https://aihero.dev/skills-tdd), red-green one slice at a time, verifying through tests rather than a browser,
-4. merges the integration branch tip into its own branch before reporting done, so landing it is a fast-forward.
+4. writes its evidence (the tests it added, the output of any check it ran) into its commit message, because the reviewers read commits, not the report it hands back,
+5. merges the integration branch tip into its own branch before reporting done, so landing it is a fast-forward.
 
 The orchestrator then merges each finished branch itself, merges the default branch's tip in as well, and runs the repo's checks. Merging the default branch every time means work that lands there during the run meets the spec's work while the conflicts are still small, not all at once when the PR opens. A merger subagent only steps in when a merge conflicts, so a clean merge costs a few commands, not a whole subagent's context.
 
-Visual and manual checks (screenshots at phone width, theme switching) run once, by the subagent that fixes the code review's findings, over everything the tickets touched. Run in every implementer at once, they repeat the same browser work several times over and can exhaust a usage limit mid-run.
+Visual and manual checks (screenshots at phone width, theme switching) run once, by the subagent that fixes the code review's findings, over everything the tickets touched. The code review is told they come later, so it doesn't report them missing, and the fixer records their result in its commit. Run in every implementer at once, they repeat the same browser work several times over and can exhaust a usage limit mid-run.
 
 The tracker decides whether a pull request exists at all. If your tracker closes work through PRs, or you ask for one, the skill opens a draft PR after the first merge and marks it ready at the end. Otherwise the run stops on the integration branch with every ticket resolved the way your tracker closes work, which works fully offline against a local markdown tracker.
 

@@ -42,7 +42,7 @@ The report uses **Tailwind via CDN** for layout and styling, and **Mermaid via C
 
 For each candidate, render a card with:
 
-- **Files**: which files/modules are involved
+- **Files**: which files/modules are involved, by file and symbol name, never line numbers: the work often starts weeks later, and a line number is stale by then. Where the problem is a repeated shape, give the search that finds every copy (e.g. `weekday()`) rather than a count
 - **Problem**: why the current architecture is causing friction
 - **Solution**: plain English description of what would change
 - **Benefits**: explained in terms of locality and leverage, and how tests would improve
